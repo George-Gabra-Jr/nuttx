@@ -28,6 +28,8 @@
 
 #if defined(CONFIG_STM32H7_STM32H7X3XX)
 #  include "stm32h743xx_flash.c"
+#elif defined(CONFIG_STM32H7_STM32H7X5XX)
+#  include "stm32h743xx_flash.c"
 #elif defined(CONFIG_STM32H7_STM32H7B3XX)
 #  include "stm32h7b3xx_flash.c"
 #elif defined(CONFIG_STM32H7_STM32H7X7XX)
