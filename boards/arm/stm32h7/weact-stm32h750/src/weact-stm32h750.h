@@ -221,11 +221,9 @@ int stm32_sdio_initialize(void);
  *
  ****************************************************************************/
 
-#ifdef CONFIG_MTD_W25QXXXJV
 #ifdef CONFIG_MTD_W25
 #ifdef CONFIG_STM32H7_SPI1
 int stm32_w25qspi_setup(void);  /* SPI1 Flash */
-#endif
 #endif
 #ifdef CONFIG_STM32H7_QSPI
 int stm32_w25qqspi_setup(void); /* QSPI Flash */

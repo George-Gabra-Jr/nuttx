@@ -61,7 +61,7 @@
 
 #include "stm32_spi.h"
 
-#ifdef CONFIG_MTD_W25QXXXJV
+#ifdef CONFIG_MTD_W25
 
 /****************************************************************************
  * Public Functions

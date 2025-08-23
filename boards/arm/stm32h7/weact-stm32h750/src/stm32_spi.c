@@ -60,7 +60,7 @@ void stm32_spidev_initialize(void)
   stm32_configgpio(GPIO_LCD_CS);    /* ST7735 chip select */
 #endif
 
-#ifdef CONFIG_MTD_W25QXXXJV
+#ifdef CONFIG_MTD_W25
   stm32_configgpio(GPIO_SPI1_CS_FLASH);  /* W25Q flash chip select */
 #endif
 }
@@ -98,7 +98,7 @@ void stm32_spi1select(struct spi_dev_s *dev,
   spiinfo("devid: %d CS: %s\n",
           (int)devid, selected ? "assert" : "de-assert");
 
-#ifdef CONFIG_MTD_W25QXXXJV
+#ifdef CONFIG_MTD_W25
   if (devid == SPIDEV_FLASH(0))
     {
       stm32_gpiowrite(GPIO_SPI1_CS_FLASH, !selected);
@@ -110,7 +110,7 @@ uint8_t stm32_spi1status(struct spi_dev_s *dev, uint32_t devid)
 {
   uint8_t status = 0;
 
-#ifdef CONFIG_MTD_W25QXXXJV
+#ifdef CONFIG_MTD_W25
   if (devid == SPIDEV_FLASH(0))
     {
       status |= SPI_STATUS_PRESENT;

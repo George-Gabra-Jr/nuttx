@@ -110,7 +110,7 @@ int stm32_bringup(void)
     }
 #endif
 
-#ifdef CONFIG_MTD_W25QXXXJV
+#ifdef CONFIG_MTD_W25
   /* Initialize SPI Flash */
 
 #ifdef CONFIG_STM32H7_SPI1
@@ -131,7 +131,7 @@ int stm32_bringup(void)
     }
 #endif
 
-#endif /* CONFIG_MTD_W25QXXXJV */
+#endif 
 
   return OK;
 }
