@@ -126,6 +126,16 @@
 #define GPIO_LCD_LED     (GPIO_OUTPUT | GPIO_PUSHPULL | GPIO_SPEED_50MHz | \
                           GPIO_OUTPUT_CLEAR | GPIO_PORTE | GPIO_PIN10)
 
+/* SPI Flash W25Q64 on SPI1 - CS pin PD6 per WeAct STM32H750 schematic */
+
+#define GPIO_SPI1_CS_FLASH (GPIO_OUTPUT | GPIO_PUSHPULL | GPIO_SPEED_50MHz | \
+                            GPIO_OUTPUT_SET | GPIO_PORTD | GPIO_PIN6)
+
+/* DVP Camera Interface */
+
+#define GPIO_DVP_PWDN    (GPIO_OUTPUT | GPIO_PUSHPULL | GPIO_SPEED_50MHz | \
+                          GPIO_OUTPUT_CLEAR | GPIO_PORTA | GPIO_PIN7)
+
 /* SD Card
  *
  * PD4  Card detected pin
@@ -201,6 +211,25 @@ int stm32_dma_alloc_init(void);
 
 #ifdef HAVE_SDIO
 int stm32_sdio_initialize(void);
+#endif
+
+/****************************************************************************
+ * Name: stm32_w25qspi_setup / stm32_w25qqspi_setup
+ *
+ * Description:
+ *   Initialize W25Q SPI and QSPI flash devices.
+ *
+ ****************************************************************************/
+
+#ifdef CONFIG_MTD_W25QXXXJV
+#ifdef CONFIG_MTD_W25
+#ifdef CONFIG_STM32H7_SPI1
+int stm32_w25qspi_setup(void);  /* SPI1 Flash */
+#endif
+#endif
+#ifdef CONFIG_STM32H7_QSPI
+int stm32_w25qqspi_setup(void); /* QSPI Flash */
+#endif
 #endif
 
 #endif /* __BOARDS_ARM_STM32H7_WEACT_STM32H750_SRC_WEACT_STM32H750_H */

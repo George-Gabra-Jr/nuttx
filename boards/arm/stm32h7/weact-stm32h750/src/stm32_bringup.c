@@ -110,5 +110,28 @@ int stm32_bringup(void)
     }
 #endif
 
+#ifdef CONFIG_MTD_W25QXXXJV
+  /* Initialize SPI Flash */
+
+#ifdef CONFIG_STM32H7_SPI1
+  ret = stm32_w25qspi_setup();
+  if (ret < 0)
+    {
+      syslog(LOG_ERR, "ERROR: Failed to initialize SPI flash: %d\n", ret);
+    }
+#endif
+
+  /* Initialize QSPI Flash */
+
+#ifdef CONFIG_STM32H7_QUADSPI
+  ret = stm32_w25qqspi_setup();
+  if (ret < 0)
+    {
+      syslog(LOG_ERR, "ERROR: Failed to initialize QSPI flash: %d\n", ret);
+    }
+#endif
+
+#endif /* CONFIG_MTD_W25QXXXJV */
+
   return OK;
 }

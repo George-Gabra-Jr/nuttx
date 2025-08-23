@@ -44,6 +44,17 @@ ifeq ($(CONFIG_FAT_DMAMEMORY),y)
 CSRCS += stm32_dma_alloc.c
 endif
 
+ifeq ($(CONFIG_MTD_W25QXXXJV),y)
+  ifeq ($(CONFIG_STM32H7_SPI1),y)
+    ifeq ($(CONFIG_MTD_W25),y)
+      CSRCS += stm32_w25q_spi.c
+    endif
+  endif
+  ifeq ($(CONFIG_STM32H7_QUADSPI),y)
+    CSRCS += stm32_w25q_qspi.c
+  endif
+endif
+
 ifeq ($(CONFIG_BOARDCTL),y)
 CSRCS += stm32_appinitialize.c
 endif

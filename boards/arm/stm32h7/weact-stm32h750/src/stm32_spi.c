@@ -59,6 +59,10 @@ void stm32_spidev_initialize(void)
 #ifdef CONFIG_LCD_ST7735
   stm32_configgpio(GPIO_LCD_CS);    /* ST7735 chip select */
 #endif
+
+#ifdef CONFIG_MTD_W25QXXXJV
+  stm32_configgpio(GPIO_SPI1_CS_FLASH);  /* W25Q flash chip select */
+#endif
 }
 
 /****************************************************************************
@@ -87,6 +91,49 @@ void stm32_spidev_initialize(void)
  *
  ****************************************************************************/
 
+#ifdef CONFIG_STM32H7_SPI1
+void stm32_spi1select(struct spi_dev_s *dev,
+                      uint32_t devid, bool selected)
+{
+  spiinfo("devid: %d CS: %s\n",
+          (int)devid, selected ? "assert" : "de-assert");
+
+#ifdef CONFIG_MTD_W25QXXXJV
+  if (devid == SPIDEV_FLASH(0))
+    {
+      stm32_gpiowrite(GPIO_SPI1_CS_FLASH, !selected);
+    }
+#endif
+}
+
+uint8_t stm32_spi1status(struct spi_dev_s *dev, uint32_t devid)
+{
+  uint8_t status = 0;
+
+#ifdef CONFIG_MTD_W25QXXXJV
+  if (devid == SPIDEV_FLASH(0))
+    {
+      status |= SPI_STATUS_PRESENT;
+    }
+#endif
+
+  return status;
+}
+
+int stm32_spi1cmddata(struct spi_dev_s *dev, uint32_t devid, bool cmd)
+{
+  /* No cmd/data for flash devices */
+  return -ENODEV;
+}
+
+int stm32_spi1register(struct spi_dev_s *dev, spi_mediachange_t callback,
+                       void *arg)
+{
+  /* No media change callback for flash */
+  return -ENODEV;
+}
+#endif
+
 #ifdef CONFIG_STM32H7_SPI4
 void stm32_spi4select(struct spi_dev_s *dev,
                       uint32_t devid, bool selected)
@@ -105,6 +152,13 @@ void stm32_spi4select(struct spi_dev_s *dev,
 uint8_t stm32_spi4status(struct spi_dev_s *dev, uint32_t devid)
 {
   return 0;
+}
+
+int stm32_spi4register(struct spi_dev_s *dev, spi_mediachange_t callback,
+                       void *arg)
+{
+  /* No media change callback for LCD */
+  return -ENODEV;
 }
 #endif
 
