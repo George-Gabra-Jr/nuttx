@@ -45,18 +45,6 @@
 #include <nuttx/drivers/drivers.h>
 #include <nuttx/drivers/ramdisk.h>
 
-#ifdef CONFIG_FS_NXFFS
-#include <nuttx/fs/nxffs.h>
-#endif
-
-#ifdef CONFIG_FS_SMARTFS
-#include <nuttx/fs/smart.h>
-#endif
-
-#ifdef CONFIG_FS_LITTLEFS
-// #include <nuttx/fs/littlefs/littlefs/lfs.h>
-#endif
-
 #include "weact-stm32h750.h"
 
 #include "stm32_spi.h"

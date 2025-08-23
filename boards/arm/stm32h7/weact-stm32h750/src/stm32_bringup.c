@@ -121,6 +121,10 @@ int stm32_bringup(void)
     }
 #endif
 
+#endif
+
+#ifdef CONFIG_MTD_W25QXXXJV
+
   /* Initialize QSPI Flash */
 
 #ifdef CONFIG_STM32H7_QUADSPI
